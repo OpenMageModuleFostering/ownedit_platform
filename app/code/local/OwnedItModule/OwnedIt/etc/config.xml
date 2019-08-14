@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 /**
- *Product Name : Owned it Checkout Addon / Plugin
- *Copyright (c) 2012 Owned it Ltd
+ *Product Name : Owned it Addon / Plugin
+ *Copyright (c) 2015 Owned it Ltd
  *
  * Owned it:
  *
@@ -46,6 +46,11 @@
         </OwnedItModule_OwnedIt>
     </modules>
     <global>
+       <models>
+            <ownedit>
+                <class>OwnedItModule_OwnedIt_Model</class>
+            </ownedit>
+        </models>
         <blocks>
             <ownedit>
                 <class>OwnedItModule_OwnedIt_Block</class>
@@ -58,6 +63,26 @@
         </helpers>			
     </global>
     <frontend>
+    	<events>
+            <checkout_onepage_controller_success_action>
+                <observers>
+                    <owneditView>
+                        <class>OwnedItModule_OwnedIt_Model_Observer</class>
+                        <method>owneditView</method>
+                        <type>singleton</type>
+                    </owneditView>
+                </observers>
+            </checkout_onepage_controller_success_action>
+            <checkout_multishipping_controller_success_action>
+                <observers>
+                  <owneditView>
+                        <class>OwnedItModule_OwnedIt_Model_Observer</class>
+                        <method>owneditView</method>
+                        <type>singleton</type>
+                    </owneditView>
+                </observers>
+            </checkout_multishipping_controller_success_action>
+        </events>
         <layout>
             <updates>
                 <ownedit>
@@ -87,12 +112,4 @@
             </resources>
         </acl>	
      </adminhtml>	
-    <default>
-        <ownedit>
-            <general>
-                 <enabled>0</enabled>
-                 <anchor_css_class>buttons-set</anchor_css_class>
-            </general>            	
-        </ownedit>	
-    </default>	
 </config>

@@ -1,5 +1,5 @@
-<?xml version="1.0"?>
-<!--
+<?php
+
 /**
  *Product Name : Owned it Addon / Plugin
  *Copyright (c) 2015 Owned it Ltd
@@ -37,11 +37,19 @@
  * @author Owned it Ltd. (http://www.ownedit.com)
  *
 **/
--->
-<layout version="0.1.0">
-	 <default>
-        <reference name="head" before="-">
-            <block type="ownedit/main" name="ownedit_js" template="ownedit/ownedit.phtml" />
-        </reference>
-    </default>
-</layout>
+
+class OwnedItModule_OwnedIt_Model_Observer
+{
+   
+    public function owneditView(Varien_Event_Observer $observer)
+    {
+        $orderIds = $observer->getEvent()->getOrderIds();
+        if (empty($orderIds) || !is_array($orderIds)) {
+            return;
+        }
+        $block = Mage::app()->getFrontController()->getAction()->getLayout()->getBlock('ownedit_js');
+        if ($block) {
+            $block->setOrderIds($orderIds);
+        }
+    }
+}

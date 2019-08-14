@@ -1,12 +1,12 @@
 {
     "name": "OpenMageModuleFostering/OwnedIt_Platform",
     "type": "magento-module",
-    "license": "MIT",
+    "license": "http://www.opensource.org/licenses/mit-license.php",
     "homepage": "",
-    "description": "Owned it - social referrals and customer engagement apps ",
+    "description": "An Easy to Use Tool to Generate Leads and Drive Sales",
     "authors": [
     {
-        "name": "Owned_it",
+        "name": "Owned it",
         "email": "support@ownedit.com"
     }
 ],

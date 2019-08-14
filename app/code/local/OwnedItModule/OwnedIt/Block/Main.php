@@ -1,8 +1,8 @@
 <?php
 
 /**
- *Product Name : Owned it Checkout Addon / Plugin
- *Copyright (c) 2012 Owned it Ltd
+ *Product Name : Owned it Addon / Plugin
+ *Copyright (c) 2015 Owned it Ltd
  *
  * Owned it:
  *
@@ -44,21 +44,98 @@ class OwnedItModule_OwnedIt_Block_Main extends Mage_Core_Block_Template {
      * Prepate layout
      * @return object
      */
-    const ANCHOR_CLASS= 'buttons-set';
-
-    protected function _toHtml() {
-
-        $braggJS = '';
-
-        if ($this->getAnchorClass() && $this->getAnchorClass() != self::ANCHOR_CLASS) {
-            $anchorClass = $this->getAnchorClass();
-            $braggJS = parent::_toHtml();
-        } else {
-            $anchorClass = self::ANCHOR_CLASS;
+   protected function _getStoreId(){
+   	 	return Mage::helper('ownedit')->getStoreId();
+   	}
+   	
+   	protected function _getStatus(){	
+   		return Mage::helper('ownedit')->isActive();
+   	}
+   	
+   	protected function _getCurrentLanguage(){
+   		return Mage::app()->getLocale()->getLocaleCode();
+   	}
+	protected function _getOwnedItJS(){
+		if($this->_getStatus()) {
+			$orderIds = $this->getOrderIds();
+        	if (empty($orderIds) || !is_array($orderIds)) {
+        		return '<div class="ownedit">'.$this->_getPrepurchaseCode().'</div>';
+        	}
+        	else{
+        		return $this->_getPostpurchaseCode(); 
+        	}
         }
-
-        if (Mage::helper('ownedit')->isActive()) {
-
+	}
+	protected function _getCategories($product_id){
+		$catArr = array();
+		$catIdArr = array();
+		$product = Mage::getModel('catalog/product')->load($product_id);
+		$cats = $product->getCategoryIds();
+		foreach ($cats as $category_id) {
+			$_cat = Mage::getModel('catalog/category')->setStoreId(Mage::app()->getStore()->getId())->load($category_id);
+			array_push($catIdArr, $category_id);
+			array_push($catArr, trim($_cat->getName()));            
+		}
+		$returnArr['categoryNames'] = $catArr;
+		$returnArr['categoryIds'] = $catIdArr;
+		return $returnArr;
+	}
+	protected function _getPrepurchaseCode() {
+		$store_id = $this->_getStoreId();
+		$language = $this->_getCurrentLanguage();
+		$quote = Mage::getModel('checkout/session')->getQuote();
+		$quoteData= $quote->getData();
+		$grandTotal=sprintf("%.2f",$quoteData['grand_total']);
+		$totalProducts = $quoteData['items_count'];
+		$cartItems = $quote->getAllVisibleItems();
+		$categories = '';$category_ids = array();
+		if(Mage::registry('current_product')) {
+			$product_id = Mage::registry('current_product')->getId();
+			$current_category = '';
+			$result = $this->_getCategories($product_id);
+			$cat = $result['categoryNames'];
+			foreach($cat as $cat_name){
+				$current_category .= "productpage_category : '". $cat_name . "',";
+			}
+			
+		}
+		$i = 1;	$prodCatArr = array();$prodCatNameArr = array();
+        foreach ($cartItems as $item)
+        {
+            $productId = $item->getProductId();
+			$result = $this->_getCategories($productId);
+			$catNames = $result['categoryNames'];
+			$catIds = $result['categoryIds'];
+			for($j=0; $j<count($catNames); $j++){ 
+				array_push($prodCatArr, $catIds[$j]);
+				array_push($prodCatNameArr, $catNames[$j]);         
+			}
+			$i++;
+         }
+		$category_ids["product_category_ids"] = json_encode($prodCatArr); 
+		$owneditJS = "";
+		$owneditJS .= "<script type='text/javascript'>";
+		$owneditJS .= "var _ownedit = _ownedit || {};";
+		$owneditJS .= "_ownedit['custom_variables'] = {";
+		$owneditJS .= "language : '".$language."', order_toal : '".$grandTotal."',";
+		$owneditJS .= "no_of_products_in_cart : '".$totalProducts."',";
+		$owneditJS .= "product_category_ids : '".json_encode($prodCatArr)."',";
+		$owneditJS .= "product_category_names : '".json_encode($prodCatNameArr)."',";
+		$owneditJS .= $current_category;
+		$owneditJS .= "};";
+		$owneditJS .= "var ss = document.createElement('script');";
+		$owneditJS .= "ss.src = 'https://cdn.ownedit.com/ownedit_js/ownedit.js?store_id=$store_id&prepurchase=true';";
+		$owneditJS .= "ss.type = 'text/javascript';";
+		$owneditJS .= "ss.async = 'true';";
+		$owneditJS .= "ss.id = 'ownedit-js';";
+		$owneditJS .= "var s = document.getElementsByTagName('head')[0];s.appendChild(ss);";
+		$owneditJS .= "</script>";
+		return $owneditJS;
+	}
+	 
+	protected function _getPostpurchaseCode() {
+		$owneditJS = "";
+		
         $order = Mage::getModel('sales/order')->load(Mage::getSingleton('checkout/session')->getLastOrderId());
 	    $email = $order->getCustomerEmail();
 	
@@ -69,8 +146,9 @@ class OwnedItModule_OwnedIt_Block_Main extends Mage_Core_Block_Template {
 		$arr['order_currency'] = $order->getOrderCurrencyCode();
         $arr['store_name']=$store_name;
 				
-        $store_id = Mage::helper('ownedit')->getStoreId();
-	    $braggJS.="<script type=\"text/javascript\" src=\"https://www.ownedit.com/ownedit_js/ownedit.js?store_id=$store_id&anchor=$anchorClass\"></script>";
+        $store_id = $this->_getStoreId();
+        
+	    $owneditJS.="<script type=\"text/javascript\" id=\"ownedit-js\" src=\"https://cdn.ownedit.com/ownedit_js/ownedit.js?store_id=$store_id&postpurchase=true\"></script>";
                    
         $itemQty = count($order->getAllVisibleItems());
 	    $products = array();			
@@ -80,7 +158,6 @@ class OwnedItModule_OwnedIt_Block_Main extends Mage_Core_Block_Template {
 
                 $product_id = $item->getProductId();
                 $product_url= $product->getProductUrl();
-                //$product_image_url=$this->helper('catalog/image')->init($product, 'thumbnail');
 				$product_image_url = $product->getImageUrl();
                 $product_name=$product->getName();
                 $store = Mage::app()->getStore();
@@ -90,41 +167,34 @@ class OwnedItModule_OwnedIt_Block_Main extends Mage_Core_Block_Template {
 	            $category = $product->getCategory();
 				$sku = $product->getSku();
                 $qty = $item->getQtyToInvoice();
-		$cat_name = "";
-		if(isset($category))
-		{	
-			$cat_name = $category->getName();
-		}	
-		$desc = $product->getShortDescription(); 
-
-		$prod = array();
-		$prod['product_name']=$product_name;
-		$prod['product_url']=$product_url;
-		$prod['product_desc']=$desc;
-		$prod['product_image_url']=$product_image_url;
-		$prod['product_price']=$price;
-		$prod['currency']=$currency;
-		$prod['product_id']=$product_id;
-		$prod['product_category']=$cat_name;
-		$prod['product_sku']=$cat_name;
-        $prod['product_quantiry']=$qty;
-		array_push($products,$prod);		
+				$cat_name = "";
+				if(isset($category))
+				{	
+					$cat_name = $category->getName();
+				}	
+				$desc = $product->getShortDescription(); 
+				$prod = array();
+				$prod['product_name']=$product_name;
+				$prod['product_url']=$product_url;
+				$prod['product_desc']=$desc;
+				$prod['product_image_url']=$product_image_url;
+				$prod['product_price']=$price;
+				$prod['currency']=$currency;
+				$prod['product_id']=$product_id;
+				$prod['product_category']=$cat_name;
+				$prod['product_sku']=$cat_name;
+        		$prod['product_quantiry']=$qty;
+				array_push($products,$prod);		
         }
                  
 	    $arr['products']=$products;
 	    $json = json_encode($arr);	
 
-	    $braggJS.="<script type=\"text/javascript\">";
-            $braggJS.="function post_to_owned_it(){";
-            $braggJS.="var details =$json;"; 
-	    $braggJS.="post_it(details);}onLoadCallBack(post_to_owned_it);</script>";
+	    $owneditJS.="<script type=\"text/javascript\">";
+            $owneditJS.="function post_to_owned_it(){";
+            $owneditJS.="var details =$json;"; 
+	    $owneditJS.="post_it(details);}onLoadCallBack(post_to_owned_it);</script>";
 	
-        }
-        return $braggJS;
-    }
-
-    protected function getAnchorClass() {
-        return Mage::helper('ownedit')->getAnchorClass();
-    }
-
+        return $owneditJS;
+	}
 }

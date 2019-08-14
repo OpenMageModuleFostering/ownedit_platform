@@ -1,7 +1,7 @@
 <?php
 /**
- *Product Name : Owned it Checkout Addon / Plugin
- *Copyright (c) 2012 Owned it Ltd
+ *Product Name : Owned it Addon / Plugin
+ *Copyright (c) 2015 Owned it Ltd
  *
  * Owned it:
  *
