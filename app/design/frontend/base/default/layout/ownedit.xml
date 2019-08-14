@@ -38,7 +38,7 @@
  *
 **/
 -->
-<layout version="2.0.2">
+<layout version="2.0.3">
 	 <default>
         <reference name="head" before="-">
             <block type="ownedit/main" name="ownedit_js" template="ownedit/ownedit.phtml" />

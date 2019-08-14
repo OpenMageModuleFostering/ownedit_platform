@@ -122,7 +122,7 @@ class OwnedItModule_OwnedIt_Block_Main extends Mage_Core_Block_Template {
 		$owneditJS .= "no_of_products_in_cart : '".$totalProducts."',";
 		$owneditJS .= "product_category_ids : '".json_encode($prodCatArr)."',";
 		$owneditJS .= "product_category_names : '".json_encode($prodCatNameArr)."',";
-		$owneditJS .= "form_key : '".$formKey."'";
+		$owneditJS .= "form_key : '".$formKey."',";
 		$owneditJS .= $current_category;
 		$owneditJS .= "};";
 		$owneditJS .= "var ss = document.createElement('script');";
