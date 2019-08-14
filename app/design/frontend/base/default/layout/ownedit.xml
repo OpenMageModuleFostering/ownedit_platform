@@ -8,7 +8,7 @@
  *
  * NOTICE OF LICENSE
  *
- *Copyright (c) <2011> <Owned it Ltd>
+ *Copyright (c) <2015> <Owned it Ltd>
  *
  *Permission is hereby granted, free of charge, to any person 
  *obtaining a copy of this software and associated 
@@ -38,7 +38,7 @@
  *
 **/
 -->
-<layout version="0.1.0">
+<layout version="2.0.2">
 	 <default>
         <reference name="head" before="-">
             <block type="ownedit/main" name="ownedit_js" template="ownedit/ownedit.phtml" />

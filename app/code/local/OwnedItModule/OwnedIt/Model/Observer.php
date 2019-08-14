@@ -8,7 +8,7 @@
  *
  * NOTICE OF LICENSE
  *
- *Copyright (c) <2011> <Owned it Ltd>
+ *Copyright (c) <2015> <Owned it Ltd>
  *
  *Permission is hereby granted, free of charge, to any person 
  *obtaining a copy of this software and associated 

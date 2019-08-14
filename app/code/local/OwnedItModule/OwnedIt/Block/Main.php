@@ -8,7 +8,7 @@
  *
  * NOTICE OF LICENSE
  *
- *Copyright (c) <2011> <Owned it Ltd>
+ *Copyright (c) <2015> <Owned it Ltd>
  *
  *Permission is hereby granted, free of charge, to any person 
  *obtaining a copy of this software and associated 
@@ -113,6 +113,7 @@ class OwnedItModule_OwnedIt_Block_Main extends Mage_Core_Block_Template {
 			$i++;
          }
 		$category_ids["product_category_ids"] = json_encode($prodCatArr); 
+		$formKey = Mage::getSingleton('core/session')->getFormKey();
 		$owneditJS = "";
 		$owneditJS .= "<script type='text/javascript'>";
 		$owneditJS .= "var _ownedit = _ownedit || {};";
@@ -121,6 +122,7 @@ class OwnedItModule_OwnedIt_Block_Main extends Mage_Core_Block_Template {
 		$owneditJS .= "no_of_products_in_cart : '".$totalProducts."',";
 		$owneditJS .= "product_category_ids : '".json_encode($prodCatArr)."',";
 		$owneditJS .= "product_category_names : '".json_encode($prodCatNameArr)."',";
+		$owneditJS .= "form_key : '".$formKey."'";
 		$owneditJS .= $current_category;
 		$owneditJS .= "};";
 		$owneditJS .= "var ss = document.createElement('script');";
