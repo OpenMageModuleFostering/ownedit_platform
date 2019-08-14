@@ -1,0 +1,16 @@
+{
+    "name": "OpenMageModuleFostering/OwnedIt_Platform",
+    "type": "magento-module",
+    "license": "MIT",
+    "homepage": "",
+    "description": "Owned it - social referrals and customer engagement apps ",
+    "authors": [
+    {
+        "name": "Owned_it",
+        "email": "support@ownedit.com"
+    }
+],
+    "suggest": {
+        "magento-hackathon/magento-composer-installer": "*"
+    }
+}

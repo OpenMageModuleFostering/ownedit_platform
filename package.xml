@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package>
+    <name>OwnedIt_Platform</name>
+    <version>0.1.1</version>
+    <stability>stable</stability>
+    <license uri="http://www.opensource.org/licenses/mit-license.php">MIT</license>
+    <channel>community</channel>
+    <extends/>
+    <summary>Owned it - social referrals and customer engagement apps </summary>
+    <description>Owned It helps you to create powerful post purchase social, referral and feedback campaigns on your Magento Store  that deliver rich insights across different channels in real time. This checkout extension facilitates product sharing on different social networks such as Facebook, Twitter, Google plus and Email and encourages them to bring in new customers to your store.&#xD;
+&#xD;
+See more at OwnedIt.com</description>
+    <notes>Integrates your store to Owned It platform</notes>
+    <authors><author><name>Owned_it</name><user>Owned_it</user><email>support@ownedit.com</email></author></authors>
+    <date>2012-07-10</date>
+    <time>17:28:01</time>
+    <contents><target name="magelocal"><dir name="OwnedItModule"><dir name="OwnedIt"><dir name="Block"><file name="Main.php" hash="f4021baf10e688d20c7169c5e852354d"/></dir><dir name="Helper"><file name="Data.php" hash="3e3c71f9e0db22ef0df4384e99c56668"/></dir><dir name="etc"><file name="config.xml" hash="e78f8d0e59dc6091045a902b2af4daad"/><file name="system.xml" hash="a958fbc5d1b6b7e2ab339c14667f790e"/></dir></dir></dir></target><target name="magedesign"><dir name="frontend"><dir name="base"><dir name="default"><dir name="layout"><file name="ownedit.xml" hash="d8db1f3de35cb7558193a1a9606dacc1"/></dir><dir name="template"><dir name="ownedit"><file name="anchor.phtml" hash="4544775f092516c68558dad197dc016d"/></dir></dir></dir></dir></dir></target><target name="mageetc"><dir name="modules"><file name="OwnedItModule_OwnedIt.xml" hash="269aa870657f6753f38fda69c814fce8"/></dir></target></contents>
+    <compatible/>
+    <dependencies><required><php><min>5.2.0</min><max>5.6.0</max></php></required></dependencies>
+</package>

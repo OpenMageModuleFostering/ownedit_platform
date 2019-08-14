@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ *Product Name : Owned it Checkout Addon / Plugin
+ *Copyright (c) 2012 Owned it Ltd
+ *
+ * Owned it:
+ *
+ * NOTICE OF LICENSE
+ *
+ *Copyright (c) <2011> <Owned it Ltd>
+ *
+ *Permission is hereby granted, free of charge, to any person 
+ *obtaining a copy of this software and associated 
+ *documentation files (the "Software"),to deal in the Software 
+ *without restriction,including without limitation the rights
+ *to use, copy, modify, merge, publish, distribute, sublicense,
+ *and/or sell copies of the Software, and to permit persons 
+ *to whom the Software is furnished to do so, subject to the 
+ *following conditions:
+ *
+ *The above copyright notice and this permission notice shall be
+ *included in all copies or substantial portions of the Software.
+ *  
+ *THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY 
+ *OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT 
+ *LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+ *FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS 
+ *BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,             
+ *WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ *ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR  
+ *THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *
+ * @license http://www.opensource.org/licenses/mit-license.php(MIT)
+ * @author Owned it Ltd. (http://www.ownedit.com)
+ *
+**/
+-->
+<config>
+    <sections>
+        <ownedit>
+            <label>Owned It</label>
+            <tab>sales</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>305</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>			
+            <groups>
+                <general translate="label">
+                    <label>Owned It Settings</label>
+                    <frontend_type>text</frontend_type>					
+                    <sort_order>100</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>		
+                        <store_id translate="label">
+                            <label>Owned It store ID</label>
+                            <frontend_type>text</frontend_type>                            
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>To enable this extension you will need a store ID from Owned It. To get your store ID click on the button below.
+                            </comment>                            
+                        </store_id>		                      		
+                        <get_storeid translate="button_label">
+                            <frontend_type>hidden</frontend_type>
+                            <sort_order>20</sort_order>
+                            <comment><![CDATA[<button id="ownedit_general_get_storeid" type="button" class="scalable" onclick="javascript:window.open('http://www.ownedit.com/', 'GetStoreId','left=100, top=100, width=1000, height=600'); return false;" ><span> Get Store ID</span></button>]]> 
+                            </comment>       
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </get_storeid>
+                        <enabled translate="label">
+                            <label>Enable Owned It</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabled>
+                        <anchor_css_class translate="label">
+                            <label>Anchor CSS class to position the Owned It sharing banner</label>
+                            <frontend_type>text</frontend_type>                            
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Provide the anchor CSS class for positioning the Owned It sharing banner on the order confirmation page. Leave this field blank to use the default value <b>('buttons-set')</b> ]]>
+                            </comment>                          
+                        </anchor_css_class>
+                     </fields>
+                </general>				                			
+            </groups>     		
+        </ownedit>		
+    </sections>
+</config>
