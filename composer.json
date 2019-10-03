@@ -1,16 +1,19 @@
 {
-    "name": "OpenMageModuleFostering/OwnedIt_Platform",
+    "name": "OpenMageModuleFostering\/OwnedIt_Platform",
     "type": "magento-module",
-    "license": "http://www.opensource.org/licenses/mit-license.php",
+    "license": "http:\/\/www.opensource.org\/licenses\/mit-license.php",
     "homepage": "",
     "description": "An Easy to Use Tool to Generate Leads and Drive Sales",
     "authors": [
-    {
-        "name": "Owned it",
-        "email": "support@ownedit.com"
-    }
-],
+        {
+            "name": "Owned it",
+            "email": "support@ownedit.com"
+        }
+    ],
     "suggest": {
-        "magento-hackathon/magento-composer-installer": "*"
-    }
+        "magento-hackathon\/magento-composer-installer": "*"
+    },
+    "keywords": [
+        "openmage-module"
+    ]
 }
